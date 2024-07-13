@@ -11,10 +11,10 @@ def generate_random_query(length=10):
     return ''.join(random.choice(letters) for _ in range(length))
 
 # Path to Microsoft Edge executable
-edge_path = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+# edge_path = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
 
 # Open Microsoft Edge
-subprocess.Popen([edge_path])
+# subprocess.Popen([edge_path])
 
 # Allow some time for the browser to open
 time.sleep(5)
@@ -35,7 +35,7 @@ for _ in range(30):
     pyautogui.press('enter')
     
     # Allow some time for the search to complete and open a new tab
-    time.sleep(30)
+    time.sleep(10)
 
 # Close all tabs using Ctrl+W
 for _ in range(30):
