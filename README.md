@@ -7,7 +7,7 @@ An automated tool that simulates Windows search and performs multiple searches t
 - Simulates pressing the Windows key to open Windows search
 - Types random search terms (10+ characters) in the Windows search bar
 - Press Enter to open each search in Microsoft Edge
-- Performs 35 searches with 10-second intervals
+- Performs 35 searches with 7-second intervals
 - Automatically closes all Edge windows when complete
 
 ## How It Works
