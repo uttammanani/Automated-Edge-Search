@@ -27,9 +27,9 @@ def display_welcome():
     print("\nThis script will:")
     print("1. Simulate pressing the Windows key")
     print("2. Search for random terms (10+ characters)")
-    print("3. Open each search in Microsoft Edge")
-    print("4. Complete 35 searches with 10-second intervals")
-    print("5. Close all tabs when finished")
+    print("3. Automatically click on the first search result")
+    print("4. Complete 35 searches with 6-second intervals")
+    print("5. Close tabs one by one when finished")
     print("\nRequirements:")
     print("- Windows OS")
     print("- Microsoft Edge browser")
@@ -50,8 +50,8 @@ def main():
     # Setup and run automation
     try:
         print("\nStarting automation in 5 seconds...")
-        print("IMPORTANT: Make sure you don't move your mouse or use your keyboard during execution!")
-        print("The script needs to control your keyboard to simulate Windows key presses and typing.")
+        print("IMPORTANT: Don't move your mouse or use your keyboard during execution!")
+        print("The script will automatically perform all searches.")
         for i in range(5, 0, -1):
             print(f"{i}...", end=" ", flush=True)
             time.sleep(1)
@@ -60,7 +60,7 @@ def main():
         # Initialize and run the automation
         search_automation = WindowsSearchAutomation(
             search_count=35,
-            delay_between_searches=10
+            delay_between_searches=6
         )
         search_automation.run()
         

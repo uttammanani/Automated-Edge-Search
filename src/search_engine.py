@@ -12,7 +12,7 @@ from src.utils import generate_random_search_term
 class WindowsSearchAutomation:
     """Class to handle Windows search automation"""
     
-    def __init__(self, search_count=35, delay_between_searches=7, min_term_length=10, max_term_length=15):
+    def __init__(self, search_count=35, delay_between_searches=6, min_term_length=10, max_term_length=15):
         """
         Initialize the search automation
         
@@ -28,6 +28,7 @@ class WindowsSearchAutomation:
         self.max_term_length = max_term_length
         self.search_terms = []
         self.browser_handler = EdgeBrowserHandler()
+        self.tabs_opened = 0
         
     def _generate_search_terms(self):
         """Generate random search terms for all searches"""
@@ -48,13 +49,24 @@ class WindowsSearchAutomation:
         print(f"Typing search term: '{term}'")
         pyautogui.write(term)
         time.sleep(0.8)  # Wait a moment after typing
-        print("Pressing Enter to search...")
-        pyautogui.press('enter')
-        time.sleep(2)  # Wait for search to launch in Edge
         
-    def _open_edge_with_search(self, term):
-        """Open Microsoft Edge with the search term"""
-        return self.browser_handler.open_search_tab(term)
+    def _auto_click_search_result(self):
+        """Automatically click on the first search result"""
+        print("Automatically clicking on the search result...")
+        
+        # Wait a moment for search results to appear
+        time.sleep(1)
+        
+        # Press down arrow to select the first search result
+        pyautogui.press('down')
+        time.sleep(0.5)
+        
+        # Press Enter to select it
+        pyautogui.press('enter')
+        time.sleep(0.5)
+        
+        # Increment the tabs opened counter
+        self.tabs_opened += 1
         
     def run(self):
         """Run the full search automation process"""
@@ -74,7 +86,10 @@ class WindowsSearchAutomation:
                 # Method via Windows search - this is the requested workflow
                 self._press_windows_key()  # Open Windows search bar
                 time.sleep(1)  # Wait for search to fully appear
-                self._type_search_term(term)  # Type and press Enter
+                self._type_search_term(term)  # Type the search term
+                
+                # Automatically click on the search result
+                self._auto_click_search_result()
                 
                 # Wait for Edge to open and load the search
                 time.sleep(2)
@@ -86,12 +101,17 @@ class WindowsSearchAutomation:
             
             # Complete
             print(f"\nAll {self.search_count} searches completed!")
-            print("Waiting 10 seconds before closing tabs...")
-            time.sleep(10)
+            print("Waiting 5 seconds before closing tabs...")
+            time.sleep(5)
             
-            # Close all Edge browser windows
-            self.browser_handler.close_all_edge_windows()
-            print("All Microsoft Edge windows have been closed.")
+            try:
+                # Close tabs one by one instead of closing all Edge windows at once
+                self.browser_handler.close_tabs_one_by_one(self.tabs_opened)
+                print("All Microsoft Edge tabs have been closed.")
+            except Exception as e:
+                print(f"Error when closing tabs one by one: {e}")
+                print("Falling back to closing all Edge windows...")
+                self.browser_handler.close_all_edge_windows()
             
         except Exception as e:
             print(f"Error during automation: {e}")

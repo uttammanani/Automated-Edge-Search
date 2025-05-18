@@ -6,17 +6,17 @@ An automated tool that simulates Windows search and performs multiple searches t
 
 - Simulates pressing the Windows key to open Windows search
 - Types random search terms (10+ characters) in the Windows search bar
-- Press Enter to open each search in Microsoft Edge
-- Performs 35 searches with 7-second intervals
-- Automatically closes all Edge windows when complete
+- Automatically clicks on the first search result
+- Performs 35 searches with 6-second intervals
+- Gracefully closes tabs one by one when complete using Ctrl+W
 
 ## How It Works
 
 1. The script presses the Windows key to open the Windows search bar
 2. It types a random search term directly in the Windows search bar
-3. It presses Enter, which launches the search in Microsoft Edge
-4. It waits 10 seconds before repeating with a new search term
-5. After 35 searches, it closes all Edge windows
+3. It automatically selects and clicks on the first search result
+4. It waits 6 seconds before repeating with a new search term
+5. After 35 searches, it closes tabs one by one using Ctrl+W
 
 ## Folder Structure
 
@@ -70,8 +70,9 @@ Automated-Edge-Search/
 4. Follow the prompts to start the automation
 5. The script will:
    - Initialize the Edge browser
-   - Perform 35 random searches with 10-second intervals
-   - Close all browser tabs when complete
+   - Perform 35 random searches with 6-second intervals
+   - Automatically click on search results
+   - Close all browser tabs one by one when complete
 
 ## Important Notes
 
@@ -83,15 +84,12 @@ Automated-Edge-Search/
 ## Troubleshooting
 
 - If the script cannot find Edge, make sure it's installed in the default location
-- If you encounter WebDriver errors, try updating the selenium package:
-  ```
-  pip install --upgrade selenium
-  ```
 - If the Windows key simulation doesn't work, try running the script as Administrator
 - If you encounter permission issues with the virtual environment:
   ```
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
   ```
+- If tab closing doesn't work properly, make sure Edge is in focus when the script attempts to close tabs
 
 ## License
 
